@@ -55,8 +55,8 @@ export default {
 
   methods: {
     modifiedDate(date) {
-      const dt = new Date(date)
-      new Intl.DateTimeFormat('pt-BR').format(dt)
+      let dt = new Date(date).toUTCString()
+      dt = dt.split(' ').slice(0, 4).join(' ')
       return dt
     }
   },
