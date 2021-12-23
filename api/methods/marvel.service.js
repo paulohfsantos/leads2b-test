@@ -1,17 +1,15 @@
 import axios from 'axios'
+import md5 from 'md5'
 
-const getTimeStamp = '1640063689';
-const publicKey = process.env.PUBLIC_KEY;
-const hash = '2a5cba6d83f8be099e5e41777a0b3665';
+const getTimeStamp = Math.round(Date.now() / 1000);
+const BASE_URL = 'https://gateway.marvel.com/v1/public/';
+const hash = md5(getTimeStamp + process.env.API_PRIVATE_KEY + process.env.API_PUBLIC_KEY);
+console.log('hash', hash);
 
 export const MarvelServices = {
-  getAllCharacters(limit=10, offset=0) {
+  getAllCharacters(limit=10) {
     return axios.get(
-      `${process.env.API_URL}:443/v1/public/characters
-      ?ts=${getTimeStamp}
-      &apikey=${publicKey}
-      &hash=${hash}
-      &limit=${limit}`
+      `${BASE_URL}characters?ts=${getTimeStamp}&apikey=${process.env.API_PUBLIC_KEY}&hash=${hash}&limit=${limit}`
     );
   },
 }

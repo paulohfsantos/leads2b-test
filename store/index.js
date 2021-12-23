@@ -1,4 +1,4 @@
-// modules
+import marvel from "./modules/marvel"
 
 export default {
   state: () => ({
@@ -18,5 +18,7 @@ export default {
       state.snackbar.color = payload.color
     },
   },
-  modules: {}
+  modules: {
+    marvel,
+  }
 }

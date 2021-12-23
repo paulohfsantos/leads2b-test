@@ -1,36 +1,48 @@
-import { MarvelServices } from "~/api/methods/marvel.service";
+// import axios from 'axios'
+import {MarvelServices} from '@/api/methods/marvel.service';
 
 const state = () => ({
-  movies: {
-    count: 1,
-    limit: 1,
-    offset: 0,
+  marvel: {
+    count: 1, // number of heroes
+    limit: 1, // items per page
+    offset: 1, // skipped pages
     results: [],
     total: 10,
   },
-  // itemsPerPage: 6,
+  itemsPerPage: 6,
 });
 
 const getters = {
-  movies: state => state.movies
+  heroes: state => {
+    console.log('getter', state.marvel);
+    return state.marvel
+  }
 }
 
 const mutations = {
-  setMovies(state, payload) {
-    state.movies = payload;
+  setHeroes(state, payload) {
+    console.log('mutations', payload);
+    state.marvel = payload;
   },
   setItemsPerPage(state, payload) {
-    state.movies.limit = payload;
+    state.marvel.limit = payload.limit;
+  },
+  resetHeroes(state) {
+    state.marvel = {
+      count: 1,
+      limit: 1,
+      offset: 1,
+      results: [],
+      total: 10,
+    };
   }
 }
 
 const actions = {
-  async getHeroes({ commit }, state) {
-    const { data } = await MarvelServices.getAllCharacters(
-      state.movies.limit,
-      state.movies.offset,
-    );
-    commit("setMovies", data);
+  async getHeroes({ commit, state }) {
+    const { data: {data} } = await MarvelServices.getAllCharacters(state.marvel.limit);
+    commit("setHeroes", data);
+    console.log('actions', data);
   }
 }
 
