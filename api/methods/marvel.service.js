@@ -11,4 +11,9 @@ export const MarvelServices = {
       `${BASE_URL}characters?ts=${getTimeStamp}&apikey=${process.env.API_PUBLIC_KEY}&hash=${hash}&limit=${limit}`
     );
   },
+  getCharacterId(id) {
+    return axios.get(
+      `${BASE_URL}characters/${id}?ts=${getTimeStamp}&apikey=${process.env.API_PUBLIC_KEY}&hash=${hash}`
+    );
+  }
 }
