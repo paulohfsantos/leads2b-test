@@ -40,15 +40,6 @@ export default {
     selected: []
   }),
 
-  methods: {
-    modifiedDate(date) {
-      const dt = new Date(date)
-      new Intl.DateTimeFormat('pt-BR').format(dt)
-      console.log(dt);
-      return dt
-    }
-  },
-
   computed: {
     ...mapGetters([
       'heroes'
@@ -60,6 +51,14 @@ export default {
       this.$store.commit('resetHeroes'),
       this.$store.dispatch('getHeroes'),
     ])
+  },
+
+  methods: {
+    modifiedDate(date) {
+      const dt = new Date(date)
+      new Intl.DateTimeFormat('pt-BR').format(dt)
+      return dt
+    }
   },
 }
 </script>
