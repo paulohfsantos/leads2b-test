@@ -4,7 +4,6 @@ import md5 from 'md5'
 const getTimeStamp = Math.round(Date.now() / 1000);
 const BASE_URL = 'https://gateway.marvel.com/v1/public/';
 const hash = md5(getTimeStamp + process.env.API_PRIVATE_KEY + process.env.API_PUBLIC_KEY);
-console.log('hash', hash);
 
 export const MarvelServices = {
   getAllCharacters(limit=10) {

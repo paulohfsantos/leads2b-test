@@ -8,6 +8,9 @@
           :headers="headers"
           :options="options"
         >
+        <template #[`item.modified`]="{ item }">
+          <span>{{ modifiedDate(item.modified) }}</span>
+        </template>
         </v-data-table>
       </v-card>
     </v-col>
@@ -36,6 +39,15 @@ export default {
     options: {},
     selected: []
   }),
+
+  methods: {
+    modifiedDate(date) {
+      const dt = new Date(date)
+      new Intl.DateTimeFormat('pt-BR').format(dt)
+      console.log(dt);
+      return dt
+    }
+  },
 
   computed: {
     ...mapGetters([
