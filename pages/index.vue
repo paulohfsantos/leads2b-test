@@ -11,6 +11,24 @@
         <template #[`item.modified`]="{ item }">
           <span>{{ modifiedDate(item.modified) }}</span>
         </template>
+        <template #[`item.actions`]="{ item }">
+          <v-tooltip bottom>
+            <template #activator="{ on, attrs }">
+              <v-btn
+                icon
+                v-bind="attrs"
+                :to="{
+                  name: 'heroid',
+                  params: { heroid: item.id }
+                }"
+                v-on="on"
+              >
+                <v-icon>mdi-eye</v-icon>
+              </v-btn>
+            </template>
+            <span>View</span>
+          </v-tooltip>
+        </template>
         </v-data-table>
       </v-card>
     </v-col>
@@ -35,6 +53,12 @@ export default {
         value: 'modified',
         align: 'center'
       },
+      {
+        text: 'View',
+        value: 'actions',
+        align: 'center',
+        sortable: false
+      }
     ],
     options: {},
     selected: []

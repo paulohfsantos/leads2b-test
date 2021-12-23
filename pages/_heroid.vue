@@ -1,5 +1,5 @@
 <template>
   <div class="hero__id">
-    hero id: {{ $route.params.id }}
+    hero
   </div>
 </template>
