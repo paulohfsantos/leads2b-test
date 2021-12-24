@@ -1,14 +1,19 @@
 <template>
   <v-app dark>
+    <!-- snackbar -->
+    <v-snackbar v-model="snackbar.show" :timeout="snackbar.timeout" :color="snackbar.color">
+      {{ snackbar.text }}
+      <template #action="{attrs}">
+        <v-btn text icon v-bind="attrs" @click.native="snackbar.snackbar = false" dark>
+          <v-icon>mdi-close</v-icon>
+        </v-btn>
+      </template>
+    </v-snackbar>
     <!-- navbar -->
     <v-app-bar :clipped-left="clipped" fixed app>
       <nuxt-link class="white--text" to="/">
         <v-toolbar-title v-text="title" />
       </nuxt-link>
-      <!-- <v-spacer />
-      <v-btn icon @click.stop="rightDrawer = !rightDrawer">
-        <v-icon>mdi-menu</v-icon>
-      </v-btn> -->
     </v-app-bar>
     <v-main>
       <v-container>
@@ -24,6 +29,7 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
 export default {
   name: 'DefaultLayout',
   data() {
@@ -44,5 +50,9 @@ export default {
       title: 'Marvel heroes',
     }
   },
+
+  computed: {
+    ...mapGetters(['snackbar'])
+  }
 }
 </script>

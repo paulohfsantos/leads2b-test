@@ -1,38 +1,21 @@
 <template>
-  <v-row justify="center" align="center">
-    <v-col cols="12" sm="8" md="6">
-      <v-card class="logo py-4 d-flex justify-center">
-        <v-data-table
-          v-model="selected"
-          :items="heroes.results"
-          :headers="headers"
-          :options="options"
-        >
-        <template #[`item.modified`]="{ item }">
-          <span>{{ modifiedDate(item.modified) }}</span>
-        </template>
-        <template #[`item.actions`]="{ item }">
-          <v-tooltip bottom>
-            <template #activator="{ on, attrs }">
-              <v-btn
-                icon
-                v-bind="attrs"
-                :to="{
-                  name: 'heroid',
-                  params: { heroid: item.id }
-                }"
-                v-on="on"
-              >
-                <v-icon>mdi-eye</v-icon>
-              </v-btn>
-            </template>
-            <span>View</span>
-          </v-tooltip>
-        </template>
-        </v-data-table>
-      </v-card>
-    </v-col>
-  </v-row>
+  <div class="heroes__container">
+    <div v-for="(heroesData, index) in heroes.results" :key="index">
+      <nuxt-link :to="{ name: 'heroid', params: { heroid: heroesData.id }}">
+        <div class="heroes__item">
+          <div class="heroes__item__img">
+            <img :src="heroesData.thumbnail.path + '.' + heroesData.thumbnail.extension" :alt="heroesData.name" />
+          </div>
+          <div class="heroes__item__name">
+            {{ heroesData.name }}
+          </div>
+          <div class="heroes__date">
+            {{ modifiedDate(heroesData.modified) }}
+          </div>
+        </div>
+      </nuxt-link>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -72,9 +55,15 @@ export default {
 
   mounted() {
     Promise.all([
-      this.$store.commit('resetHeroes'),
       this.$store.dispatch('getHeroes'),
-    ])
+    ]).then().catch(() => {
+      this.$store.commit('showSnackbar', {
+        show: true,
+        text: 'No heroes found',
+        color: 'error'
+      })
+      // console.log(err);
+    });
   },
 
   methods: {

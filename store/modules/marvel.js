@@ -4,16 +4,19 @@ import {MarvelServices} from '@/api/methods/marvel.service';
 const state = () => ({
   marvel: {
     count: 1, // number of heroes
-    limit: 1, // items per page
+    limit: 10, // items per page
     offset: 1, // skipped pages
     results: [],
-    total: 10,
+    total: 1,
   },
   hero: {
     id: 1,
     name: '',
     description: '',
-    thumbnail: {},
+    thumbnail: {
+      extension: '',
+      path: '',
+    },
     modified: '',
     resourceURI: '',
     comics: {
@@ -67,7 +70,7 @@ const mutations = {
       limit: 1,
       offset: 1,
       results: [],
-      total: 10,
+      total: 1,
     };
   },
   resetHero(state) {
@@ -75,7 +78,10 @@ const mutations = {
       id: 1,
       name: '',
       description: '',
-      thumbnail: {},
+      thumbnail: {
+        extension: '',
+        path: '',
+      },
       modified: '',
       resourceURI: '',
       comics: {
@@ -114,9 +120,9 @@ const actions = {
   },
 
   async getHeroById({ commit }, id) {
-    const { data: {data: {results}} } = await MarvelServices.getCharacterId(id);
-    commit("setHero", results);
-    console.log('hero', results);
+    const { data: { data: { results } } } = await MarvelServices.getCharacterId(id);
+    commit("setHero", results[0]);
+    console.log('hero', results[0]);
   },
 }
 

@@ -1,0 +1,27 @@
+.heroes__container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  place-items: center;
+  font-size: 14px;
+
+  a {
+    text-decoration: none;
+    color: #eeeeee;
+
+    &:hover {
+      color: #c75757;
+    }
+  }
+
+  .heroes__item {
+    display: flex;
+    flex-direction: column;
+
+    .heroes__item__img {
+      img {
+        width: 200px;
+        height: 200px;
+      }
+    }
+  }
+}

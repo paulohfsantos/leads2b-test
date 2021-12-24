@@ -6,6 +6,7 @@ export default {
       show: false,
       text: '',
       color: '',
+      timeout: 3000,
     }
   }),
   getters: {
@@ -16,6 +17,7 @@ export default {
       state.snackbar.show = true
       state.snackbar.text = payload.text
       state.snackbar.color = payload.color
+      state.snackbar.timeout = payload.timeout
     },
   },
   modules: {
