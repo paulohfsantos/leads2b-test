@@ -24,6 +24,14 @@ export default {
     '@/assets/heroid.scss',
   ],
 
+  publicRuntimeConfig: {
+    apiPublicKey: process.env.API_PUBLIC_KEY,
+  },
+
+  privateRuntimeConfig: {
+    apiPrivateKey: process.env.API_PRIVATE_KEY
+  },
+
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [],
 

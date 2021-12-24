@@ -22,7 +22,7 @@
     </v-main>
     <v-footer :absolute="false" app>
       <span>
-        Developed by @paulohfsantos_
+        Under development by @paulohfsantos_
       </span>
     </v-footer>
   </v-app>
