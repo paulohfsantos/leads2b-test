@@ -4,7 +4,7 @@
     <v-snackbar v-model="snackbar.show" :timeout="snackbar.timeout" :color="snackbar.color">
       {{ snackbar.text }}
       <template #action="{attrs}">
-        <v-btn text icon v-bind="attrs" @click.native="snackbar.snackbar = false" dark>
+        <v-btn text icon v-bind="attrs" dark @click.native="snackbar.snackbar = false">
           <v-icon>mdi-close</v-icon>
         </v-btn>
       </template>

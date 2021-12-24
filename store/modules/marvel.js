@@ -116,12 +116,14 @@ const actions = {
   async getHeroes({ commit, state }) {
     const { data: {data} } = await MarvelServices.getAllCharacters(state.marvel.limit);
     commit("setHeroes", data);
+    // eslint-disable-next-line no-console
     console.log('actions', data);
   },
 
   async getHeroById({ commit }, id) {
     const { data: { data: { results } } } = await MarvelServices.getCharacterId(id);
     commit("setHero", results[0]);
+    // eslint-disable-next-line no-console
     console.log('hero', results[0]);
   },
 }
