@@ -2,6 +2,8 @@
 
 ## About
 
+Projeto feito para o teste de front-end da Leads2b.
+
 ### `Techs`:
 
 - State Management: `Vuex` to control global state
