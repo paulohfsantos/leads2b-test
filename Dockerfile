@@ -1,31 +1,32 @@
 FROM node:16.13.1-alpine as builder
 
-WORKDIR /app
+# Create app directory
+RUN mkdir -p /usr/src/leads2b-test
+WORKDIR /usr/src/leads2b-test
 
-COPY . .
+# Install app dependencies
+RUN apk update && apk upgrade
+RUN apk add git
 
-RUN yarn install \
-  --prefer-offline \
-  --frozen-lockfile \
-  --non-interactive \
-  --production=false
+# copy the app, note, .dockerignore
+COPY . /usr/src/leads2b-test/
+RUN npm install
 
-RUN yarn build
+# build necessary, even if no static files are needed
+# since it builds the server as well
+RUN npm run build
 
-RUN rm -rf node_modules && \
-  NODE_ENV=production yarn install \
-  --prefer-offline \
-  --pure-lockfile \
-  --non-interactive \
-  --production=true
+# expose to 5000 on container
+EXPOSE 5000
 
-FROM node:lts
+# nuxt env variables
+# ENV API_PUBLIC_KEY=${API_PUBLIC_KEY}
+# ENV API_PRIVATE_KEY=${API_PRIVATE_KEY}
 
-WORKDIR /app
+# set app serving to permissive / assigned
+ENV NUXT_HOST=0.0.0.0
+# set app port
+ENV NUXT_PORT=5000
 
-COPY --from=builder /app  .
-
-ENV HOST 0.0.0.0
-EXPOSE 80
-
-CMD [ "yarn", "start" ]
+# start the app
+CMD ["npm", "start"]
