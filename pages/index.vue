@@ -2,17 +2,17 @@
   <div class="heroes__container">
     <div v-for="(heroesData, index) in heroes.results" :key="index">
       <nuxt-link :to="{ name: 'heroid', params: { heroid: heroesData.id }}">
-        <div class="heroes__item">
+        <v-card class="heroes__item text-center mb-2 px-2 py-2">
           <div class="heroes__item__img">
             <img :src="heroesData.thumbnail.path + '.' + heroesData.thumbnail.extension" :alt="heroesData.name" />
           </div>
           <div class="heroes__item__name">
-            {{ heroesData.name }}
+            <h2>{{ heroesData.name }}</h2>
           </div>
           <div class="heroes__date">
             {{ modifiedDate(heroesData.modified) }}
           </div>
-        </div>
+        </v-card>
       </nuxt-link>
     </div>
   </div>
@@ -23,29 +23,6 @@ import {mapGetters} from 'vuex'
 
 export default {
   name: 'IndexPage',
-
-  data: () => ({
-    headers: [
-      {
-        text: 'Hero',
-        value: 'name',
-        align: 'center'
-      },
-      {
-        text: 'Modified',
-        value: 'modified',
-        align: 'center'
-      },
-      {
-        text: 'View',
-        value: 'actions',
-        align: 'center',
-        sortable: false
-      }
-    ],
-    options: {},
-    selected: []
-  }),
 
   computed: {
     ...mapGetters([
@@ -62,7 +39,6 @@ export default {
         text: 'No heroes found',
         color: 'error'
       })
-      // console.log(err);
     });
   },
 

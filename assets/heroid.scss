@@ -7,6 +7,29 @@
           height: auto;
         }
       }
+
+      .infos {
+        .character__date {
+          h3 {
+            color: #e8cc5e;
+          }
+        }
+        .character__desc {
+          font-size: 18px;
+        }
+      }
+
+      .more {
+        display: flex;
+        a {
+          color: #e8cc5e;
+          text-decoration: none;
+
+          &:hover {
+            color: #c75757;
+          }
+        }
+      }
     }
   }
 }

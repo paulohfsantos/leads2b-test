@@ -8,19 +8,42 @@
       </v-col>
     </v-row>
     <div class="character__container">
-      <div class="character__data">
-       <div class="character__item">
-          <div class="character__item__img">
-            <img  :src="hero.thumbnail.path+'.'+hero.thumbnail.extension" />
-          </div>
-          <div class="character__item__name">
-            {{ hero.name }}
-          </div>
-          <div class="character__date">
-            {{ hero.modified }}
-          </div>
-        </div>
-      </div>
+      <v-card class="character__data">
+       <v-col sm="12" class="character__item">
+          <v-row>
+            <v-col md="6" sm="12" class="text-center">
+              <div class="character__item__img">
+                <img :src="hero.thumbnail.path+'.'+hero.thumbnail.extension" />
+              </div>
+            </v-col>
+            <v-col md="6" sm="12">
+              <div class="infos">
+                <div class="character__item__name">
+                  <h1>
+                    {{ hero.name }}
+                  </h1>
+                </div>
+                <div class="character__date">
+                  <h3>
+                    {{ modifiedDate(hero.modified) }}
+                  </h3>
+                </div>
+                <div class="character__desc">
+                  <v-alert v-if="hero.description == ''" class="mt-2" color="warning" outlined>
+                    Description not found
+                  </v-alert>
+                  {{ hero.description }}
+                </div>
+              </div>
+              <div class="more">
+                <div v-for="(link, i) in hero.urls" :key="i" class="mr-3">
+                  <a target="_blank" :href="link.url">{{ link.type }}</a>
+                </div>
+              </div>
+            </v-col>
+          </v-row>
+        </v-col>
+      </v-card>
     </div>
   </section>
 </template>
@@ -48,6 +71,14 @@ export default {
         color: 'error'
       })
     });
+  },
+
+  methods: {
+    modifiedDate(date) {
+      let dt = new Date(date).toUTCString()
+      dt = dt.split(' ').slice(0, 4).join(' ')
+      return dt
+    }
   },
 }
 </script>
