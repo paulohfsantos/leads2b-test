@@ -21,6 +21,7 @@ export default {
   css: [
     '@/assets/main.scss',
     '@/assets/home.scss',
+    '@/assets/heroid.scss',
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
